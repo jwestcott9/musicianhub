@@ -28,6 +28,10 @@ const usersSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now()
+  },  
+  userType: {
+    type: String,
+    required: false
   },
   todos: [{
     type: Schema.Types.ObjectId,

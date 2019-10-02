@@ -1,14 +1,18 @@
 import React, {Component} from "react";
 import "./Profile.scss";
-import { Button } from "reactstrap";
+import { Button, Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom"
 import API from "../../utils/API"
+import Calendar from "../../components/Calendar"
+import PracticeBreakdown from  "../../components/PracticeBreakdown"
+
 
 class Profile extends Component {
     state = {
         loggedIn: false,
         user: null,
-        loading: true
+        loading: true,
+        
     }
 
     componentDidMount() {
@@ -39,7 +43,16 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className="profilePage">
+            <div className="profilePage">   
+                <Row>
+                    <Col sm ="1"></Col>
+                    <Col sm = "5">
+                       <PracticeBreakdown/>
+                    </Col>
+                    <Col sm = "6">
+            <Calendar className= "calendar"/>
+            </Col>
+            </Row>
                 {this.state.loggedIn ? (
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>

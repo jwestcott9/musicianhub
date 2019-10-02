@@ -12,14 +12,18 @@ class Auth extends Component {
     password: "",
     confirmPassword: "",
     user: null,
-    message: ""
+    message: "",
+    userType: ""
   }
 
   handleInputChange = event => {
+    console.log(event.target.name);
     const value = event.target.value;
     const name = event.target.name;
     this.setState({
       [name]: value
+    }, ()=>{
+      console.log(this.state.userType)
     });
   };
 
@@ -28,7 +32,7 @@ class Auth extends Component {
     if (this.state.username && this.state.password) {
       API.login({
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
       }).then(user => {
         console.log(user);
         if (user.data.loggedIn) {
@@ -53,7 +57,8 @@ class Auth extends Component {
     if (this.state.username && this.state.password) {
       API.signup({
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        userType: this.state.userType
       }).then(user => {
         if (user.data.loggedIn) {
           this.setState({
@@ -61,7 +66,7 @@ class Auth extends Component {
             user: user.data.user
           });
           console.log("log in successful");
-          window.location.href = '/profile';
+          window.location.href = '/updateprofile';
         } else {
           console.log("something went wrong :(")
           console.log(user.data);
@@ -86,11 +91,12 @@ class Auth extends Component {
           />
         ) : (
             <Signup
+              userType = {this.state.userType}
               username={this.state.username}
               password={this.state.password}
               confirmPassword={this.state.confirmPassword}
               handleSignup={this.handleSignup}
-              handleInputChange={this.handleInputChange}
+              handleInputChange={this.handleInputChange}      
               message={this.state.message}
             />
           )}

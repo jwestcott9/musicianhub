@@ -65,6 +65,14 @@ class Signup extends Component {
                     <Alert className="animated fadeIn" color="danger">{this.props.message}</Alert>
                 ): (<></>)}
                 <Form>
+                <FormGroup>
+                        <Label for="userType">I am a...</Label> 
+                        <Input type="select" name="userType" id="exampleSelect" value ={this.props.userType} onChange = {this.props.handleInputChange}>
+                            <option>Student</option>
+                            <option>Teacher</option>
+
+                         </Input>  
+                    </FormGroup>
                     <FormGroup>
                         <Label for="username">Username</Label>
                         <Input type="text" name="username" id="username" placeholder="username" value={this.props.username} onChange={this.props.handleInputChange} valid={this.state.validUsername} />
@@ -78,6 +86,7 @@ class Signup extends Component {
                         <Input type="password" name="confirmPassword" id="confirmPassword" placeholder="confirm password" value={this.props.confirmPassword} onChange={this.props.handleInputChange} valid={this.state.confirmPassword} />
                         <FormText>at least 8 characters, 1 capital & 1 number</FormText>
                     </FormGroup>
+                    
                     {/* if all fields are valid, allow the user to submit the form */}
                     {(this.state.validUsername && this.state.validPassword && this.state.confirmPassword) ? (
                         <Button onClick={this.props.handleSignup} color="success" block>Signup</Button>
