@@ -90,6 +90,15 @@ export default class Navigation extends Component {
                                             <DropdownItem>
                                                 <NavLink onClick={this.logout}>Logout</NavLink>
                                             </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink>Messages</NavLink>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink>Upcoming Auditions</NavLink>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink>Concerts for You</NavLink>
+                                            </DropdownItem>
                                         </>
                                     ) : (
                                         <>

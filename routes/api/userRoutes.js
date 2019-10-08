@@ -16,6 +16,8 @@ router.post("/login", passport.authenticate("local", {
   });
 });
 
+
+
 // /api/users/signup
 // route to logout the user
 router.post("/signup", function(req, res, next) {

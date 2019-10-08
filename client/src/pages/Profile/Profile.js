@@ -5,16 +5,31 @@ import { Link } from "react-router-dom"
 import API from "../../utils/API"
 import Calendar from "../../components/Calendar"
 import PracticeBreakdown from  "../../components/PracticeBreakdown"
-
+import TabBar from  "../../components/tabBar";
+import UserCard from "../../components/UserCard";
+import UpcomingAuditions from "../../components/UpcomingAuditions";
+import UpdateProfile from "../../components/UpdateProfile";
+import Messages from "../../components/Messages";
+import { throws } from "assert";
 
 class Profile extends Component {
-    state = {
-        loggedIn: false,
-        user: null,
-        loading: true,
-        
+    constructor(props){
+        super(props);
+        this.state = {
+            loggedIn: false,
+            user: null,
+            loading: true,
+            display: "calendar",
+            
+        }
+        this.renderCalendar = this.renderCalendar.bind(this);
+        this.renderMessages = this.renderMessages.bind(this);
+        this.renderUpcomingAuditions = this.renderUpcomingAuditions.bind(this);
+        this.renderUpdateProfile = this.renderUpdateProfile.bind(this);
+        this.renderBreakdown = this.renderBreakdown.bind(this);
+    
     }
-
+    
     componentDidMount() {
 
         this.loading();
@@ -41,17 +56,66 @@ class Profile extends Component {
         }, 1000)  
     }
 
+    renderCalendar(){
+        this.setState({
+            display: "calendar"
+        })
+    }
+
+    renderMessages (){
+        this.setState({
+            display: "Messages"
+        })
+    }
+
+    renderUpcomingAuditions(){
+        this.setState({
+            display: "UpcomingAuditions"
+        })
+    }
+
+    renderBreakdown (){
+        this.setState ({
+            display:"Breakdown"
+        })
+    }
+    renderUpdateProfile(){
+        this.setState({
+            display: "UpdateProfile"
+        })
+    }
+
     render() {
         return (
-            <div className="profilePage">   
+           <>
+           <Row>
+               <Col xs = "3">
+           <UserCard/>
+           </Col>
+           <Col > 
+            <div className="profilePage"> 
+          
+            <TabBar
+            renderCalendar = {this.renderCalendar}
+            renderBreakdown = {this.renderBreakdown}
+            renderMessages = {this.renderMessages}
+            renderUpcomingAuditions = {this.renderUpcomingAuditions}
+            renderUpdateProfile = {this.renderUpdateProfile}/>
                 <Row>
-                    <Col sm ="1"></Col>
-                    <Col sm = "5">
-                       <PracticeBreakdown/>
-                    </Col>
-                    <Col sm = "6">
-            <Calendar className= "calendar"/>
-            </Col>
+                  
+            {  
+                    this.state.display === "calendar" ? (
+                <Calendar className= "calendar"/>
+            )   :   this.state.display === "Breakdown" ?    (
+                <PracticeBreakdown/>
+            )   :   this.state.display  === "Messages" ?    (
+                <Messages/>
+            )   :   this.state.display === "UpcomingAuditions" ?    (
+                <UpcomingAuditions/>
+            )   :
+                <UpdateProfile/>  
+            }
+            
             </Row>
                 {this.state.loggedIn ? (
                     <div className="profileBox">
@@ -70,8 +134,12 @@ class Profile extends Component {
                     </div> 
                 )}
             </div>
+            </Col>
+            </Row>
+            </>
         )
     }
+ 
 }
 
 

@@ -3,7 +3,7 @@ import "./UpdateProfile.scss";
 import API from "../../utils/API";
 import UserCard from "../../components/UserCard"
 import TeacherSearch from "../../components/TeacherSearch"
-import {Row} from "reactstrap";
+import {Row, Col, Container} from "reactstrap";
 
 
 class UpdateProfile extends Component{
@@ -66,7 +66,7 @@ class UpdateProfile extends Component{
         }, 1000)
     }
 
-
+ 
     handleInputChange = event =>{
         const value = event.target.value;
         const name  = event.target.name;
@@ -85,7 +85,14 @@ class UpdateProfile extends Component{
         return (
             <>
             <div>I am the update profile page you have arrived</div>
+            
+            <Row>
+              <Container>
+                <Col xs = "5">
             <UserCard/>
+            </Col>
+            </Container> 
+            </Row>
             </>
         )
     }

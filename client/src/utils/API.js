@@ -1,4 +1,5 @@
 import axios from "axios";
+import cheerio from "cheerio";
 
 export default {
   // logs in user
@@ -26,9 +27,8 @@ export default {
     return axios.get("/api/users/logout")
   },
 
-  // api that gets a random Chuck Norris Joke
-  ChuckNorris: function() {
-    return axios.get("https://api.icndb.com/jokes/random");
+  getAuditions: function(req, res){
+    return axios.get("/api/cheerio/auditions")
   }
 
 };
