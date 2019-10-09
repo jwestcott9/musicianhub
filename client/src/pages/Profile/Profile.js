@@ -7,10 +7,11 @@ import Calendar from "../../components/Calendar"
 import PracticeBreakdown from  "../../components/PracticeBreakdown"
 import TabBar from  "../../components/tabBar";
 import UserCard from "../../components/UserCard";
-import UpcomingAuditions from "../../components/UpcomingAuditions";
+import UpcomingAuditions from "../../components/AuditionsParent";
 import UpdateProfile from "../../components/UpdateProfile";
 import Messages from "../../components/Messages";
 import { throws } from "assert";
+
 
 class Profile extends Component {
     constructor(props){
@@ -20,6 +21,7 @@ class Profile extends Component {
             user: null,
             loading: true,
             display: "calendar",
+            auditions: []
             
         }
         this.renderCalendar = this.renderCalendar.bind(this);
@@ -33,7 +35,7 @@ class Profile extends Component {
     componentDidMount() {
 
         this.loading();
-
+        
         API.isLoggedIn().then(user => {
             if (user.data.loggedIn) {
                 this.setState({
@@ -48,6 +50,7 @@ class Profile extends Component {
         console.log(this.props)
     }
 
+   
     loading() {
         setTimeout(()=> {
             this.setState({

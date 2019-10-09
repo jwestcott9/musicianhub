@@ -27,8 +27,8 @@ export default {
     return axios.get("/api/users/logout")
   },
 
-  getAuditions: function(req, res){
-    return axios.get("/api/cheerio/auditions")
+  getAuditions: function(){
+    return axios.post("/api/cheerios/auditions")
   }
 
 };
