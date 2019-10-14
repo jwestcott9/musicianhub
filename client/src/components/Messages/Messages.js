@@ -1,4 +1,9 @@
 import React from 'react';
+import UserCard from "../../components/UserCard"
+import {Container} from "reactstrap";
+import "./Messages.scss"
+
+
 
 export default class MessageBoard extends React.Component {
     constructor(props) {
@@ -8,7 +13,17 @@ export default class MessageBoard extends React.Component {
 
     render(){
     return (
-        <div>I am the message board you have arrived</div>
+        <>
+       <input className= "searchBar" placeholder = "search"></input>
+        <Container >
+        
+        <UserCard 
+        search = "true"
+        Instrument = "Cello"
+        Name = "Jeff"/>
+        
+        </Container>
+     </>   
     )
 }
 }

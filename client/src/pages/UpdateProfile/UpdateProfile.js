@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import UserCard from "../../components/UserCard"
 import TeacherSearch from "../../components/TeacherSearch"
 import {Row, Col, Container} from "reactstrap";
+import UpdateForm from "../../components/UpdateProfile";
 
 
 class UpdateProfile extends Component{
@@ -15,6 +16,7 @@ class UpdateProfile extends Component{
             firstName: "",
             lastName: "",
             username: null,
+            user: {},
             instrument: "",
             userType: "",
             loading: false,
@@ -40,13 +42,15 @@ class UpdateProfile extends Component{
 
 
     componentDidMount(){
+
         API.isLoggedIn().then(user => {
             if(user.data.loggedIn){
                 this.setState({
                     loggedIn: true,
-                    user: user.data.user._id,
+                    user: user.data.user,
                     username: user.data.user.username
-                });
+                }, ()=>
+                console.log(this.state.user));
             }
         }).catch(err =>{
             console.log(err);
@@ -84,12 +88,13 @@ class UpdateProfile extends Component{
     render (){
         return (
             <>
-            <div>I am the update profile page you have arrived</div>
+            <div>{this.state.user.userType}</div>
             
             <Row>
               <Container>
                 <Col xs = "5">
             <UserCard/>
+            <UpdateForm/>
             </Col>
             </Container> 
             </Row>

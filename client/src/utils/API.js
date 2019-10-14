@@ -29,6 +29,13 @@ export default {
 
   getAuditions: function(){
     return axios.post("/api/cheerios/auditions")
-  }
+  },
 
+  updateProfile: function (profileInfo){
+    return axios.put("/api/users/update", profileInfo)
+  },
+
+  getUserData: function(id){
+    return axios.get("api/users/userdata")
+  }
 };

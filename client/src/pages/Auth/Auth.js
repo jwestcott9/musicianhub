@@ -13,11 +13,12 @@ class Auth extends Component {
     confirmPassword: "",
     user: null,
     message: "",
-    userType: ""
+    userType: "student"
   }
 
   handleInputChange = event => {
     console.log(event.target.name);
+    
     const value = event.target.value;
     const name = event.target.name;
     this.setState({
@@ -29,7 +30,7 @@ class Auth extends Component {
 
   handleLogin = event => {
     event.preventDefault();
-    if (this.state.username && this.state.password) {
+    if (this.state.username && this.state.password ) {
       API.login({
         username: this.state.username,
         password: this.state.password,
@@ -53,8 +54,9 @@ class Auth extends Component {
   }
 
   handleSignup = event => {
+    console.log(this.state.userType)
     event.preventDefault();
-    if (this.state.username && this.state.password) {
+    if (this.state.username && this.state.password && this.state.userType) {
       API.signup({
         username: this.state.username,
         password: this.state.password,
@@ -66,7 +68,7 @@ class Auth extends Component {
             user: user.data.user
           });
           console.log("log in successful");
-          window.location.href = '/updateprofile';
+          window.location.href = '/profile';
         } else {
           console.log("something went wrong :(")
           console.log(user.data);

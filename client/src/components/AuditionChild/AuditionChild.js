@@ -16,7 +16,7 @@ function AuditionTable(props){
             </thead>
             <tbody>
             {props.auditions.map((value, index) => {
-                return <tr><td>{index}</td><td key ={index}> {value.title}</td> <td key = {index}><a href = {value.link}>{value.position}</a></td><td>{value.date}</td></tr>
+                return <tr><td>{index+1}</td><td key ={index}> {value.title}</td> <td key = {index}><a href = {value.link}>{value.position}</a></td><td>{value.date}</td></tr>
             })}
             </tbody>
         </Table>

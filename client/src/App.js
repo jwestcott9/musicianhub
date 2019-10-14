@@ -23,7 +23,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/signup" render={(props) => <Auth {...props} action="signup" />} />
               <Route exact path="/login" render={(props) => <Auth {...props} action="login" />} />
-              <Route exact path="/profile" component={Profile} />
+              <Route  exact path="/profile" component={Profile} />
               <Route exact path = "/updateprofile" render = {(props) => <UpdateProfile {...props}/>}/>
               <Route component={NoMatch} />
             </Switch>

@@ -33,6 +33,39 @@ const usersSchema = new Schema({
     type: String,
     required: false
   },
+  email: {
+    type: String,
+    required: false,
+    default: "No Email"
+  },
+  firstName: {
+    type: String, 
+    required: false,
+    default: "NoFirstName"
+  },
+  lastName: {
+    type: String,
+    required: false,
+    default: "NoLastName"
+  },
+  instrument: {
+    type: String,
+    required: true,
+    default: "noInstrument"
+  },
+  bio: {
+    type: String,
+    required: false,
+  },
+  image: {
+    type: String,
+    required: false
+  },
+  private: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   todos: [{
     type: Schema.Types.ObjectId,
     ref: 'Todo'

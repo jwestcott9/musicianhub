@@ -18,6 +18,7 @@ router.post("/login", passport.authenticate("local", {
 
 
 
+
 // /api/users/signup
 // route to logout the user
 router.post("/signup", function(req, res, next) {
@@ -43,6 +44,22 @@ router.post("/signup", function(req, res, next) {
     }
   })
 });
+
+router.put("/update", function( req, res, next){
+  console.log(req.body);
+  db.User.findByIdAndUpdate(req.body._id, {
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    instrument: req.body.instrument,
+    bio: req.body.bio,
+    image: req.body.image,
+    username: req.body.username
+  }, (err, newData) =>{
+    if (err) throw err;
+    res.json(newData)
+  })
+})
 
 // /api/users/unauthorized
 // route that gets hit if user is not logged in
@@ -82,6 +99,14 @@ router.get("/admin", authMiddleware.isAdmin, function(req, res, next) {
     loggedIn: true
   });
 });
+
+router.get("/userdata", function(req,res){
+  db.User.findById(req.body._id).then((user) =>{
+    res.json(user);
+  }).catch((err)=>{
+    res.json(err);
+  })
+})
 
 router.get("/user", authMiddleware.isLoggedIn, function(req, res, next) {
   db.User.findByIdAndUpdate(req.user._id).populate('todos').then((user) => {

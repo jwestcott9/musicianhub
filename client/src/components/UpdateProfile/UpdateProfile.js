@@ -1,56 +1,139 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import API from "../../utils/API";
 
 export default class Example extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+        loggedIn: false,
+        user: null,
+        loading: true,
+        email: "",
+        firstName: "",
+        lastName: "",
+        instrument: "",
+        bio: "",
+        private: false,
+        image: "",
+        username: ""
+    }
+    this.handleFormSubmit =this.handleFormSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  componentDidMount(){
+    console.log(this.props)
+    if(this.props.loggedIn){
+      this.setState({
+        loggedIn: this.props.loggedIn,
+        _id: this.props.user._id,
+        email: this.props.user.email,
+        firstName: this.props.user.firstName,
+        lastName: this.props.user.lastName,
+        instrument: this.props.user.instrument,
+        bio: this.props.user.bio,
+        private: this.props.user.private,
+        image: this.props.user.image,
+        username: this.props.user.username
+      }, ()=>{
+        console.log(this.state);
+      })
+    }
+  }
+  handleFormSubmit = event =>{
+    event.preventDefault();
+    console.log()
+    console.log(this.state);
+    API.updateProfile(this.state).then(user =>{
+      console.log(user);
+    })
+  }
+
+  handleInputChange = event =>{
+    console.log(event.target.name);
+    console.log(event.target.value);
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    }, ()=>{
+      console.log(this.state);
+    })
+  }
+
   render() {
     return (
       <Form>
         <FormGroup>
+        <FormGroup>
+          <Label for="exampleEmail">Username</Label>
+          <Input type="email" name="username" onChange = {this.handleInputChange} value = {this.state.username}id="userName" placeholder="username" />
+        </FormGroup>
           <Label for="exampleEmail">Email</Label>
-          <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+          <Input type="email" name="email" onChange = {this.handleInputChange} value = {this.state.email}id="exampleEmail" placeholder="example@mail.com" />
         </FormGroup>
         <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+          <Label for="examplePassword">First Name</Label>
+          <Input type="name" name="firstName" onChange = {this.handleInputChange}  value = {this.state.firstName} placeholder="First Name" />
+          
         </FormGroup>
         <FormGroup>
-          <Label for="exampleSelect">Select</Label>
-          <Input type="select" name="select" id="exampleSelect">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+        <Label for="examplePassword">Last Name</Label>
+          <Input type="name" name="lastName"onChange = {this.handleInputChange} value = {this.state.lastName} id="examplePassword" placeholder="First Name" />
+          
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleSelect">Instrument</Label>
+          <Input type="select" name="instrument" onChange = {this.handleInputChange} id="exampleSelect">
+            <option>{this.state.instrument}</option>
+            <option>Flute</option>
+            <option>Oboe</option>
+            <option>Clarinet</option>
+            <option>Saxophone</option>
+            <option>Bassoon</option>
+            <option>French Horn</option>
+            <option>Trumpet</option>
+            <option>Trombone</option>
+            <option>Euphonium</option>
+            <option>Trumpet</option>
+            <option>Tuba</option>
+            <option>Violin</option>
+            <option>Cello</option>
+            <option>Viola</option>
+            <option>Double Bass</option>
+            <option>Guitar</option>
+            <option>Harp</option>
+            <option>Piano</option>
+            <option>Harpsichord</option>
+            <option>Organ</option>
+            <option>Percussion</option>
+            <option>soprano/mezzo</option>
+            <option>alto</option>
+            <option>tenor</option>
+            <option>bass/baritone</option>
+           
           </Input>
         </FormGroup>
+        
         <FormGroup>
-          <Label for="exampleSelectMulti">Select Multiple</Label>
-          <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </Input>
+          <Label for="exampleText">Bio</Label>
+          <Input type="textarea" name="bio" onChange = {this.handleInputChange} value = {this.state.bio} id="exampleText" />
         </FormGroup>
         <FormGroup>
-          <Label for="exampleText">Text Area</Label>
-          <Input type="textarea" name="text" id="exampleText" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleFile">File</Label>
+          <Label for="exampleFile">Update Profile Image</Label>
           <Input type="file" name="file" id="exampleFile" />
-          <FormText color="muted">
+          <FormText  color="muted">
             This is some placeholder block-level help text for the above input.
             It's a bit lighter and easily wraps to a new line.
           </FormText>
         </FormGroup>
-        <FormGroup tag="fieldset">
-          <legend>Radio Buttons</legend>
+        {/* <FormGroup tag="fieldset">
+          <legend>Basics</legend>
           <FormGroup check>
             <Label check>
               <Input type="radio" name="radio1" />{' '}
-              Option one is this and that—be sure to include why it's great
+            Allow Email Updates
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -65,14 +148,14 @@ export default class Example extends React.Component {
               Option three is disabled
             </Label>
           </FormGroup>
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup check>
           <Label check>
             <Input type="checkbox" />{' '}
-            Check me out
+            Make Account Private
           </Label>
         </FormGroup>
-        <Button>Submit</Button>
+        <Button onClick = {this.handleFormSubmit}>Submit</Button>
       </Form>
     );
   }

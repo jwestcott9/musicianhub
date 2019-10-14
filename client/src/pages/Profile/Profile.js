@@ -20,8 +20,8 @@ class Profile extends Component {
             loggedIn: false,
             user: null,
             loading: true,
-            display: "calendar",
-            auditions: []
+            display: "",
+            auditions: [],
             
         }
         this.renderCalendar = this.renderCalendar.bind(this);
@@ -33,14 +33,17 @@ class Profile extends Component {
     }
     
     componentDidMount() {
-
+        
         this.loading();
         
         API.isLoggedIn().then(user => {
+            console.log(user.data);
             if (user.data.loggedIn) {
                 this.setState({
                     loggedIn: true,
                     user: user.data.user
+                }, ()=>{
+                    console.log(this.state.user)
                 });
             }
         }).catch(err => {
@@ -91,9 +94,20 @@ class Profile extends Component {
     render() {
         return (
            <>
-           <Row>
+        
+           
+                {this.state.loggedIn ? (
+
+                   <>
+                   {this.state.user.userType === "Teacher" ?(
+
+<>
+                       <div>This is a teacher profile</div>
+
+                       <Row>
                <Col xs = "3">
-           <UserCard/>
+           <UserCard
+           profilePage = "true" />
            </Col>
            <Col > 
             <div className="profilePage"> 
@@ -112,33 +126,127 @@ class Profile extends Component {
             )   :   this.state.display === "Breakdown" ?    (
                 <PracticeBreakdown/>
             )   :   this.state.display  === "Messages" ?    (
-                <Messages/>
+                <Messages
+                />
             )   :   this.state.display === "UpcomingAuditions" ?    (
                 <UpcomingAuditions/>
             )   :
-                <UpdateProfile/>  
+                <UpdateProfile
+                
+                loggedIn = {this.state.loggedIn}
+                user = {this.state.user}
+                />  
             }
             
             </Row>
-                {this.state.loggedIn ? (
+
+                            
+                              
+                                </div>
+            </Col>
+            </Row>
+                       </>
+                   ):
+                   (<>
+                       <div>this is a student profile</div>
+                       <Row>
+               <Col xs = "3">
+           <UserCard
+           profilePage = "true"/>
+           </Col>
+           <Col > 
+            <div className="profilePage"> 
+          
+            <TabBar
+            renderCalendar = {this.renderCalendar}
+            renderBreakdown = {this.renderBreakdown}
+            renderMessages = {this.renderMessages}
+            renderUpcomingAuditions = {this.renderUpcomingAuditions}
+            renderUpdateProfile = {this.renderUpdateProfile}/>
+                <Row>
+                  
+            {  
+                    this.state.display === "calendar" ? (
+                <Calendar className= "calendar"/>
+            )   :   this.state.display === "Breakdown" ?    (
+                <PracticeBreakdown/>
+            )   :   this.state.display  === "Messages" ?    (
+                <Messages
+                />
+            )   :   this.state.display === "UpcomingAuditions" ?    (
+                <UpcomingAuditions/>
+            )   :
+                <UpdateProfile
+                loggedIn = {this.state.loggedIn}
+                user = {this.state.user}
+                />  
+            }
+            
+            </Row>
+
+                                </div>
+            </Col>
+            </Row>
+                       </>
+                   ) }
                     <div className="profileBox">
-                        <h1 id="userTitle">Welcome {this.state.user.username}</h1>
+                        <h1 id="userTitle">Welcome {this.state.user.username} {this.state.user.userType}</h1>
                     </div>
+                    </>
                 ) : (
                     <div className="noUser">
                         {!this.state.loading ? (
                             <>
+                            <Row>
+               <Col xs = "3">
+           <UserCard
+           profilePage = "true"/>
+           </Col>
+           <Col > 
+            <div className="profilePage"> 
+          
+            <TabBar
+            renderCalendar = {this.renderCalendar}
+            renderBreakdown = {this.renderBreakdown}
+            renderMessages = {this.renderMessages}
+            renderUpcomingAuditions = {this.renderUpcomingAuditions}
+            renderUpdateProfile = {this.renderUpdateProfile}/>
+                <Row>
+                  
+            {  
+                    this.state.display === "calendar" ? (
+                <Calendar className= "calendar"/>
+            )   :   this.state.display === "Breakdown" ?    (
+                <PracticeBreakdown/>
+            )   :   this.state.display  === "Messages" ?    (
+                <Messages
+                
+                />
+            )   :   this.state.display === "UpcomingAuditions" ?    (
+                <UpcomingAuditions/>
+            )   :
+                <UpdateProfile
+                loggedIn = {this.state.loggedIn}
+                user = {this.state.user}
+                />  
+            }
+            
+            </Row>
+
+                            
                                 <h1>please log in</h1>
                                 <Link className="loginLink" to="/login"><Button className="loginBtn" color="info" block>Login</Button></Link>
+                           
+                                </div>
+            </Col>
+            </Row>
                             </>
                         ) : (
                             <img id="loadingIcon" src="./assets/images/loading.gif" alt="loading"/>
                         )}
                     </div> 
                 )}
-            </div>
-            </Col>
-            </Row>
+           
             </>
         )
     }
