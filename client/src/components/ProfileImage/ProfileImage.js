@@ -12,9 +12,11 @@ function image (props){
    ):
    (props.type === "sideBarIcon")?(
        <img src = {props.image} alt = "profile" className = "sideBarIcon"/>
+   ): (props.type === "searchIcon")?(
+       <img src = {props.image} alt = "profile" className = "searchIcon"/>
    ):(
-       <img src = {props.image} alt = "profile"/>
-   )
+    <img src = {props.image} alt = "profile"/>
+) 
 
    }
    </>
