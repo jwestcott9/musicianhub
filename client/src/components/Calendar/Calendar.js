@@ -5,7 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 // import axios from "axios";
 import Table from "../../components/Table";
-
+import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
 
 
@@ -72,11 +72,15 @@ render(){
                     center: "title",
                     right: "dayGridMonth, dayGridWeek, timeGridDay, listWeek "
                 }}
-                plugins = {[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin]}
+                plugins = {[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin, googleCalendarPlugin]}
+                googleCalendarApiKey= 'AIzaSyBdmYDIz9IbdGv_a0GsknXcQmasrx4x6OQ'
                 ref = {this.calendarComponentRef}
                 weekends = {this.state.calendarWeekends}
                 editable= "true"
-                events = {this.state.calendarWeekends}
+                events = {
+                    [this.state.calendarWeekends, {googleCalendarId: "jwestcott9@gmail.com"}]
+                    }
+                    
                 dateClick = {this.handleDateClick}
                 themeSystem = "bootstrap3"
                 selectable = "true"
