@@ -36,6 +36,6 @@ export default {
   },
 
   getUserData: function(id){
-    return axios.get("api/users/userdata")
+    return axios.get("api/users/userdata", id)
   }
 };

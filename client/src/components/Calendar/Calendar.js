@@ -5,7 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 // import axios from "axios";
 import Table from "../../components/Table";
-
+import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
 
 
@@ -35,10 +35,11 @@ constructor(props){
         ],
         workoutHeader1: "",
         workoutBody1: "",
-        view: "dayGridWeek"
+        view: "dayGridMonth"
 
     };
     this.toggle = this.toggle.bind(this);
+    
 
 }
 
@@ -51,6 +52,34 @@ toggle(){
         })
     };
 }
+/* HERE IS THE TYPPE OF DATA THAT THE FULLCALENDAR PACKAGE WANTS TO SEE 
+let event = {
+          title: "MealPlan",
+          info: obj,
+          start: element.start,
+          end: element.end, 
+          color: "red"
+        } 
+        
+    */
+
+componentDidMount(){
+    console.log("something")
+    let s = new Date("10/17/19 7:00 AM");
+
+    let e = new Date("10/17/19 9:00 AM")
+
+
+    this.setState({
+        calendarEvents: [{
+          title: "MealPlan",
+          info: "this will be the datta about the practice plan that gets imported from the teacher",
+          start: s,
+          end: e, 
+          color: "red"
+        } ]
+    })
+}
 toggle3 = ()=>{
     console.log(this)
     this.setState({
@@ -58,73 +87,6 @@ toggle3 = ()=>{
     })
 }
 
-render(){
-    return (
-        <div className = "calendar">
-
-            {!this.state.loading ?
-            <div className= "calendar-student">
-                <FullCalendar
-                className = "calendar"
-                defaultView = {this.state.view}
-                header= {{
-                    left: "prev, next today",
-                    center: "title",
-                    right: "dayGridMonth, dayGridWeek, timeGridDay, listWeek "
-                }}
-                plugins = {[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin]}
-                ref = {this.calendarComponentRef}
-                weekends = {this.state.calendarWeekends}
-                editable= "true"
-                events = {this.state.calendarWeekends}
-                dateClick = {this.handleDateClick}
-                themeSystem = "bootstrap3"
-                selectable = "true"
-                eventClick = {this.eventClick}
-                eventColor = "grey"
-                eventTextColor="white"
-                Integer = '9000000'
-
-                />
-                </div>: <div></div>
-            }
-        <div>
-
-        <Modal 
-        isOpen ={this.state.modal} 
-        toggle ={this.toggle} 
-        dialogClassName = "mdaol-90w"
-        size="lg">
-            <ModalHeader 
-            toggle = {this.toggle}>
-                Daily Excersize 
-            </ModalHeader>
-            <ModalBody>
-                
-            </ModalBody>
-        </Modal>
-
-        <Modal 
-        isOpen = {this.state.modal2}
-        toggle = {this.toggle2}
-        dialogClassName = "modal-90w"
-        size = "lg">
-            <ModalHeader 
-            toggle ={this.toggle2}>
-                Listening Description
-            </ModalHeader>
-
-            <ModalBody>
-                <tbody>
-                    <Table/>
-                </tbody>
-            </ModalBody>
-        </Modal>
-
-        </div>
-        </div>
-    );
-}
 
 
 toggleWeekends = () => {
@@ -179,6 +141,85 @@ handleDateClick = arg => {
       });
     
   }
+  render(){
+    return (
+        <div className = "calendar">
+
+            {!this.state.loading ?
+            <div className= "calendar-student">
+                <FullCalendar
+                className = "calendar"
+                defaultView = {this.state.view}
+                header= {{
+                    left: "prev, next today",
+                    center: "title",
+                    right: "dayGridMonth, dayGridWeek, timeGridDay, listWeek "
+                }}
+                plugins = {[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin, googleCalendarPlugin]}
+                googleCalendarApiKey= 'AIzaSyBdmYDIz9IbdGv_a0GsknXcQmasrx4x6OQ'
+                ref = {this.calendarComponentRef}
+                weekends = {this.state.calendarWeekends}
+                editable= "true"
+                eventSources = 
+               { [this.state.calendarEvents,
+                
+                    { 
+                          googleCalendarId: "jwestcott9@gmail.com",
+                          color: "lightblue"
+                    }
+                    
+                ]}
+                                
+               
+                
+                dateClick = {this.handleDateClick}
+                themeSystem = "bootstrap3"
+                selectable = "true"
+                eventClick = {this.eventClick}
+                eventColor = "grey"
+                eventTextColor="white"
+                Integer = '9000000'
+
+                />
+                </div>: <div></div>
+            }
+        <div>
+
+        <Modal 
+        isOpen ={this.state.modal} 
+        toggle ={this.toggle} 
+        dialogClassName = "mdaol-90w"
+        size="lg">
+            <ModalHeader 
+            toggle = {this.toggle}>
+                Daily Excersize 
+            </ModalHeader>
+            <ModalBody>
+                
+            </ModalBody>
+        </Modal>
+
+        <Modal 
+        isOpen = {this.state.modal2}
+        toggle = {this.toggle2}
+        dialogClassName = "modal-90w"
+        size = "lg">
+            <ModalHeader 
+            toggle ={this.toggle2}>
+                Listening Description
+            </ModalHeader>
+
+            <ModalBody>
+                <tbody>
+                    <Table/>
+                </tbody>
+            </ModalBody>
+        </Modal>
+
+        </div>
+        </div>
+    );
+}
 
 
 }

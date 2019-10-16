@@ -29,8 +29,10 @@ class Profile extends Component {
         this.renderUpcomingAuditions = this.renderUpcomingAuditions.bind(this);
         this.renderUpdateProfile = this.renderUpdateProfile.bind(this);
         this.renderBreakdown = this.renderBreakdown.bind(this);
-    
+        this.reload = this.reload.bind(this);
     }
+    
+
     
     componentDidMount() {
         
@@ -53,6 +55,12 @@ class Profile extends Component {
         console.log(this.props)
     }
 
+    reload(updatedUser) {
+        console.log(updatedUser);
+        this.setState({
+            user: updatedUser
+        })
+    }
    
     loading() {
         setTimeout(()=> {
@@ -107,7 +115,10 @@ class Profile extends Component {
                        <Row>
                <Col xs = "3">
            <UserCard
-           profilePage = "true" />
+           loggedIn = {this.state.loggedIn}
+            user = {this.state.user }
+           profilePage = "true" 
+           />
            </Col>
            <Col > 
             <div className="profilePage"> 
@@ -132,7 +143,7 @@ class Profile extends Component {
                 <UpcomingAuditions/>
             )   :
                 <UpdateProfile
-                
+                reload = {this.reload}
                 loggedIn = {this.state.loggedIn}
                 user = {this.state.user}
                 />  
@@ -152,6 +163,8 @@ class Profile extends Component {
                        <Row>
                <Col xs = "3">
            <UserCard
+           loggedIn = {this.state.loggedIn}
+           user = {this.state.user }
            profilePage = "true"/>
            </Col>
            <Col > 
@@ -177,6 +190,7 @@ class Profile extends Component {
                 <UpcomingAuditions/>
             )   :
                 <UpdateProfile
+                reload = {this.reload}
                 loggedIn = {this.state.loggedIn}
                 user = {this.state.user}
                 />  
@@ -200,6 +214,8 @@ class Profile extends Component {
                             <Row>
                <Col xs = "3">
            <UserCard
+           loggedIn = {this.state.loggedIn}
+            user = {this.state.user }
            profilePage = "true"/>
            </Col>
            <Col > 
@@ -226,6 +242,7 @@ class Profile extends Component {
                 <UpcomingAuditions/>
             )   :
                 <UpdateProfile
+                reload = {this.reload}
                 loggedIn = {this.state.loggedIn}
                 user = {this.state.user}
                 />  

@@ -5,19 +5,19 @@ import {Card, Button, CardBody, CardTitle, CardImg, CardSubtitle, CardText, Cont
 import UserImage from "../../components/ProfileImage";
 
 function  UserCard (props) {
-
+console.log(props)
     return(
         <>
 
-            {props.profilePage === "true" ? (
+            {props.profilePage === "true"  && props.loggedIn  ? (
       <Card className="UserCard">
         <CardImg top width="100%" src="/assets/images/12307424_10206734781501853_2992567671720288241_o.jpg" alt="Card image cap" />
         <CardBody>
-          <CardTitle>{props.username}</CardTitle>
-          <CardSubtitle>{props.firstName} {props.lastName}</CardSubtitle>
-          <CardText>Teacher: {props.teacher}</CardText>
-          <CardText>Instrument: {props.instrument}</CardText>
-          <CardText> Birthday: {props.birthday}</CardText>
+          <CardTitle>{props.user.username}</CardTitle>
+          <CardSubtitle>{props.user.firstName} {props.user.lastName}</CardSubtitle>
+          <CardText>{props.user.email}</CardText>
+          <CardText>Type: {props.user.userType}</CardText>
+          <CardText>Instrument: {props.user.instrument}</CardText>
           <Button>Edit Profile</Button>
         </CardBody>
       </Card>

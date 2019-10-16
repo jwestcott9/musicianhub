@@ -35,7 +35,8 @@ export default class Example extends React.Component {
         bio: this.props.user.bio,
         private: this.props.user.private,
         image: this.props.user.image,
-        username: this.props.user.username
+        username: this.props.user.username,
+        userType: this.props.user.userType
       }, ()=>{
         console.log(this.state);
       })
@@ -45,9 +46,11 @@ export default class Example extends React.Component {
     event.preventDefault();
     console.log()
     console.log(this.state);
+    this.props.reload(this.state);
     API.updateProfile(this.state).then(user =>{
       console.log(user);
-    })
+      
+    } )
   }
 
   handleInputChange = event =>{
