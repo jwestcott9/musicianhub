@@ -11,6 +11,7 @@ import UpcomingAuditions from "../../components/AuditionsParent";
 import UpdateProfile from "../../components/UpdateProfile";
 import Messages from "../../components/Messages";
 import { throws } from "assert";
+import PracticePlan from "../../components/PracticePlan";
 
 
 class Profile extends Component {
@@ -30,6 +31,7 @@ class Profile extends Component {
         this.renderUpdateProfile = this.renderUpdateProfile.bind(this);
         this.renderBreakdown = this.renderBreakdown.bind(this);
         this.reload = this.reload.bind(this);
+        this.renderPracticePlan = this.renderPracticePlan.bind(this);
     }
     
 
@@ -98,6 +100,12 @@ class Profile extends Component {
             display: "UpdateProfile"
         })
     }
+    renderPracticePlan(){
+        console.log("practicePlan")
+        this.setState({
+            display: "PracticePlan"
+        })
+    }
 
     render() {
         return (
@@ -128,7 +136,8 @@ class Profile extends Component {
             renderBreakdown = {this.renderBreakdown}
             renderMessages = {this.renderMessages}
             renderUpcomingAuditions = {this.renderUpcomingAuditions}
-            renderUpdateProfile = {this.renderUpdateProfile}/>
+            renderUpdateProfile = {this.renderUpdateProfile}
+            renderPracticePlan = {this.renderPracticePlan}/>
                 <Row>
                   
             {  
@@ -141,7 +150,10 @@ class Profile extends Component {
                 />
             )   :   this.state.display === "UpcomingAuditions" ?    (
                 <UpcomingAuditions/>
-            )   :
+            )  : this.state.display === "PracticePlan" ? (
+                <PracticePlan/>
+            )
+             :
                 <UpdateProfile
                 reload = {this.reload}
                 loggedIn = {this.state.loggedIn}
@@ -175,7 +187,9 @@ class Profile extends Component {
             renderBreakdown = {this.renderBreakdown}
             renderMessages = {this.renderMessages}
             renderUpcomingAuditions = {this.renderUpcomingAuditions}
-            renderUpdateProfile = {this.renderUpdateProfile}/>
+            renderUpdateProfile = {this.renderUpdateProfile}
+            renderPracticePlan = {this.renderPracticePlan}/>
+            
                 <Row>
                   
             {  
@@ -188,7 +202,9 @@ class Profile extends Component {
                 />
             )   :   this.state.display === "UpcomingAuditions" ?    (
                 <UpcomingAuditions/>
-            )   :
+            )  : this.state.display === "PracticePlan" ? (
+                <PracticePlan/>
+            ):
                 <UpdateProfile
                 reload = {this.reload}
                 loggedIn = {this.state.loggedIn}
@@ -226,7 +242,8 @@ class Profile extends Component {
             renderBreakdown = {this.renderBreakdown}
             renderMessages = {this.renderMessages}
             renderUpcomingAuditions = {this.renderUpcomingAuditions}
-            renderUpdateProfile = {this.renderUpdateProfile}/>
+            renderUpdateProfile = {this.renderUpdateProfile}
+            renderPracticePlan = {this.renderPracticePlan}/>
                 <Row>
                   
             {  
@@ -240,7 +257,9 @@ class Profile extends Component {
                 />
             )   :   this.state.display === "UpcomingAuditions" ?    (
                 <UpcomingAuditions/>
-            )   :
+            )   : this.state.display === "PracticePlan" ? (
+                <PracticePlan/>
+            ):
                 <UpdateProfile
                 reload = {this.reload}
                 loggedIn = {this.state.loggedIn}
@@ -271,4 +290,4 @@ class Profile extends Component {
 }
 
 
-export default Profile;
+export default Profile; 

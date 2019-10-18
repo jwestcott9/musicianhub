@@ -61,6 +61,9 @@ export default class Example extends React.Component {
           <NavItem className = "navItem">
             <NavLink onClick= {this.props.renderUpdateProfile}  href="#">Profile</NavLink>
           </NavItem>
+          <NavItem className ="navItem">
+              <NavLink onClick = {this.props.renderPracticePlan} href = "#">Practice Plan</NavLink>
+          </NavItem>
           
             
         </Nav>

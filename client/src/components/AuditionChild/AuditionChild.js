@@ -1,10 +1,11 @@
 import React from "react";
-import {Table} from 'reactstrap';
-
+import {Table,  Button} from 'reactstrap';
+import Modal from "../Modal";
 function AuditionTable(props){
 
     return (
         <>
+       
         <Table>
             <thead>
                 <tr>
@@ -16,7 +17,7 @@ function AuditionTable(props){
             </thead>
             <tbody>
             {props.auditions.map((value, index) => {
-                return <tr><td>{index+1}</td><td key ={index}> {value.title}</td> <td key = {index}><a href = {value.link}>{value.position}</a></td><td>{value.date}</td></tr>
+                return <tr><td>{index+1}</td><td > {value.title}</td> <td key = {index}><a  href = {value.link}>{value.position}</a></td><Button href ="#" data ={value.date} onClick = {props.launchModal}>{value.date}</Button></tr>
             })}
             </tbody>
         </Table>
