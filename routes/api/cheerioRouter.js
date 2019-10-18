@@ -45,6 +45,7 @@ router.post("/auditions", function(req, res){
           .children("div.post_item_closingdate")
           .children("span.preserve_case")
           .text();
+          
           console.log(result);
           final.push(result);
         })

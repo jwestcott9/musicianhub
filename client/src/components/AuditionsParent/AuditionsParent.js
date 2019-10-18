@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import API from "../../utils/API";
 import AuditionTable from "../AuditionChild";
-import "./AuditionsParent.scss"
+import "./AuditionsParent.scss";
+import Modal from "../Modal";
 
 class UpcomingAuditions extends Component {
  constructor(props){
@@ -19,7 +20,10 @@ loading(){
         })
     }, 1000)  
 }
-
+launchModal = event => {
+    console.log(event.target.text);
+}
+toggle = () => setModal(!modal);
 componentDidMount(){
     this.loading();
     console.log("componenetDidMount")
@@ -37,10 +41,12 @@ componentDidMount(){
 render(){
     return(
     <>
+    <Modal/>
     {!this.state.loading ?
     
         <AuditionTable
         auditions = {this.state.auditionArray}
+        launchModal = {this.launchModal}
         />
         :
         <img id="loadingIcon" src="./assets/images/loading.gif" alt="loading"/>

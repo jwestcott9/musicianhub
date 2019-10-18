@@ -141,6 +141,7 @@ handleDateClick = arg => {
       });
     
   }
+  
   render(){
     return (
         <div className = "calendar">
@@ -215,6 +216,7 @@ handleDateClick = arg => {
                 </tbody>
             </ModalBody>
         </Modal>
+        <Button onClick = {this.getClientEvents}/>
 
         </div>
         </div>
